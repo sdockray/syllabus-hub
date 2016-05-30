@@ -115,7 +115,11 @@ class Git(object):
             return [p for p in self.gl.getall(self.gl.getprojectsall)]
 
     def create_project_with_content(self, title, content):
-        new_p = self.gl.createproject(title, description=title, public=True)
+        import string
+        new_p = self.gl.createproject(
+            "".join(l for l in title if l not in string.punctuation), 
+            description=title, 
+            public=True)
         if new_p:
             self.gl.createfile(new_p['id'], 'README.md', 'master', content, 'creating syllabus')
         return new_p
