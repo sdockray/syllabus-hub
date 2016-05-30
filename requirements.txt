@@ -1,0 +1,7 @@
+flask
+flask-login
+flask-markdown
+Flask-WTF
+pyapi-gitlab
+itsdangerous
+markdown2

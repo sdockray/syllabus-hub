@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <style>
+    #layout {
+        padding: 2em;
+        color: black;
+    }
+    </style>
+</head>
+<body>
+<div id="layout">
+    <div class="pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item"><a class="button-xsmall pure-button" href="{{ url_for('projects_list') }}">/</a></li>
+        {% if g.user.is_authenticated %}
+        <li class="pure-menu-item"><a class="button-xsmall pure-button" href="{{ url_for('projects_user') }}">{{ g.user['name'] }} /</a></li>
+        {% endif %}
+        <li class="pure-menu-item"><a class="button-xsmall pure-button" href="{{ url_for('create_project') }}">+ a new syllabus</a></li>
+      </ul>
+    </div>    
+    <br/>
+    <div class="pure-menu">
+    <span class="pure-menu-heading">{{ title }}</span>
+    <ul class="pure-menu-list">
+    {% for p in projects | sort(attribute='name') %}
+    <li class="pure-menu-item"><a href="{{ url_for('view_project', namespace=p['namespace']['path'], project_name=p['path']) }}">{{ p['name_with_namespace'] }}</a>
+    </li>
+    {% endfor %}
+    </ul>
+    </div>
+</div>
+</body>
+</html>

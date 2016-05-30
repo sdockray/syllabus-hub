@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>clone: {{ title }}</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <style>
+    #layout {
+        padding: 2em;
+        color: black;
+    }
+    </style>
+</head>
+<body>
+<div id="layout">
+    <p>You are about to clone the <a href="{{ url }}">{{ project_name }}</a> syllabus.</p>
+    <p>This means you are creating a copy of the syllabus that you can edit.</p>
+    <p>The edits that you make to your copy will not affect the syllabus you copied. The original syllabus and your clone will be linked together, however, so that people can see different variations and evolutions of a syllabus across times and places.</p>
+    <p>If you want to continue, click the button below.</p>
+    <form action="{{ fork_url }}" method="post">
+    <button class="pure-button">Clone it</button>
+    </form>
+</div>
+</body>
+</html>

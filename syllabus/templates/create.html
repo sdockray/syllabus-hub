@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>edit: {{ title }}</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700' rel='stylesheet' type='text/css'>
+    <script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <style>
+    #layout {
+        padding: 2em;
+        color: black;
+    }
+    .syllabus {
+      font-family: 'Roboto', sans-serif;
+    }
+    </style>
+</head>
+<body>
+<div id="layout">
+    <form class="pure-form"  action="{{ save_url }}" method="post">
+    <fieldset>
+    {{ form.title(placeholder='Title', style="width: 400px;") }}
+    <button class="pure-button">Save</button></p>
+    </fieldset>
+    <div class="syllabus">
+    <textarea name="content">
+# Title of example syllabus
+
+You don't need to structure the syllabus like this but it is here as an example of how the formatting works.
+
+## A section
+* Something here is _italicized_
+* Something else is __bold__
+
+## Another section
+* And another list
+    </textarea>
+    </div>
+    </form>
+    <p>FYI: there is no way to delete anything yet.</p>
+</div>
+<script>
+var simplemde = new SimpleMDE();
+</script>
+</body>
+</html>
