@@ -1,6 +1,6 @@
 # syllabus-hub
 
-This is a website for a syllabus sharing community - a "GitHub for syllabi."
+This is a website for a syllabus sharing community - a "GitHub for syllabi." You can see it running at [http://syllabus.thepublicschool.org](http://syllabus.thepublicschool.org)
 
 It imagines a syllabus a bit like software, as a product of collective intellectual labor, as a score to be interpreted or acted out in different contexts.
 
@@ -12,6 +12,7 @@ This project comes out of conversations with many people at The Public School in
 
 ```
 git clone http://github.com/sdockray/syllabus-hub
+cd syllabus-hub
 virtualenv venv 
 source venv/bin/activate
 pip install -r requirements.txt
