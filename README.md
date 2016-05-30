@@ -28,3 +28,4 @@ GIT_SERVER = 'http://your.gitlab.server'
 GIT_PRIVATE_TOKEN = 'rootUserPrivateToken'
 PORT = 5001
 ```
+If you want to contribute to the development, it is a fairly straightforward Flask project. You will likely want to do some more with the Gitlab API, so have a look at the documentation for pyapi-gitlab: [http://pyapi-gitlab.readthedocs.io/en/latest/#api-doc](http://pyapi-gitlab.readthedocs.io/en/latest/#api-doc)
