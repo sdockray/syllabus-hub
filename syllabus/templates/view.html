@@ -25,6 +25,7 @@
 <div id="layout">
     <div class="pure-menu pure-menu-horizontal">
       <ul class="pure-menu-list">
+        <li class="pure-menu-item"><a class="button-xsmall pure-button" href="{{ url_for('projects_list') }}">/</a></li>
         <a href="#" class="pure-menu-heading pure-menu-link">{{ title }}</a>
         {% if edit_url %}
         <li class="pure-menu-item"><a class="button-xsmall pure-button" href="{{ edit_url }}">edit</a></li>

@@ -119,7 +119,8 @@ class Git(object):
         new_p = self.gl.createproject(
             "".join(l for l in title if l not in string.punctuation), 
             description=title, 
-            public=True)
+            public=True,
+            visibility_level=20)
         if new_p:
             self.gl.createfile(new_p['id'], 'README.md', 'master', content, 'creating syllabus')
         return new_p
