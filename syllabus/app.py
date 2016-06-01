@@ -148,6 +148,12 @@ class Project(Git):
     def update(self, content, file_name='README.md', branch='master'):
         self.gl.updatefile(self.project['id'], file_name, branch, content, 'saved via web')
 
+    def join(self):
+        if 'id' in self.project:
+            # 40 seems to allow saving (not sure if a slightly lower level would also work? 30 does not)
+            return self.gl.addprojectmember(self.project['id'], self.current_user()['id'], 40)
+        return False
+
     def fork(self):
         if 'id' in self.project:
             # I have to do direct curl because the API call seems buggy
@@ -157,20 +163,23 @@ class Project(Git):
             #return self.gl.createfork(self.project['id'])
         return False
 
-    def can_edit(self):
+    def can_edit(self, consider_members=True):
         u = self.current_user()
         if not u or not 'username' in u or not 'owner' in self.project:
             return False
         if u['username']==self.project['owner']['username']:
             return True
-        else:
-            return False
+        if consider_members:
+            for m in self.gl.getall(self.gl.getprojectmembers, self.project['id']):
+                if m['id']==u['id']:
+                    return True
+        return False
 
     def can_fork(self):
         u = self.current_user()
         if not u or not 'username' in u or not 'owner' in self.project:
             return False
-        if self.can_edit():
+        if self.can_edit(consider_members=False):
             return False
         import pprint
         for p in self.gl.getall(self.gl.getprojectsowned):
@@ -233,20 +242,6 @@ def view_project(namespace, project_name):
         fork_url = url_for('fork_project', namespace=namespace, project_name=project_name) if p.can_fork() else False
     )
 
-@app.route('/<namespace>/<project_name>/edit', methods=['GET', 'POST'])
-@login_required
-def edit_project(namespace, project_name):
-    p = Project("%s/%s" % (namespace, project_name), user=current_user)
-    if not p.can_edit():
-        return "Something went wrong. You can't edit this syllabus."
-    if 'content' in request.form:
-        p.update(request.form['content'])
-        return redirect(url_for('view_project',  namespace=namespace, project_name=project_name))
-    return render_template('edit.html',
-        title = p.get_title(),
-        save_url = url_for('edit_project', namespace=namespace, project_name=project_name),
-        form = EditForm(content=dcode(p.get_content())))
-
 @app.route('/make', methods=['GET', 'POST'])
 @login_required
 def create_project():
@@ -264,6 +259,41 @@ def create_project():
         title = 'New syllabus',
         save_url = url_for('create_project'),
         form = CreateForm())
+
+
+@app.route('/<namespace>/<project_name>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_project(namespace, project_name):
+    p = Project("%s/%s" % (namespace, project_name), user=current_user)
+    if not p.can_edit():
+        return redirect(url_for('join_project',  namespace=namespace, project_name=project_name))
+    if 'content' in request.form:
+        p.update(request.form['content'])
+        flash('Syllabus saved.')
+        return redirect(url_for('view_project',  namespace=namespace, project_name=project_name))
+    return render_template('edit.html',
+        title = p.get_title(),
+        save_url = url_for('edit_project', namespace=namespace, project_name=project_name),
+        form = EditForm(content=dcode(p.get_content())))
+
+
+@app.route('/<namespace>/<project_name>/join', methods=['GET', 'POST'])
+@login_required
+def join_project(namespace, project_name):
+    p = Project("%s/%s" % (namespace, project_name), user=current_user)
+    if p.can_edit():
+        return "You are already collaborating on this syllabus."
+    if request.method == 'POST':
+        p.join()
+        flash('You are now collaborating on this syllabus.')
+        return redirect(url_for('view_project',  namespace=namespace, project_name=project_name))
+    return render_template('join.html',
+        title = p.get_title(),
+        project_name = project_name,
+        owner = p.project['owner']['name'],
+        url = url_for('view_project', namespace=namespace, project_name=project_name),
+        join_url = url_for('join_project', namespace=namespace, project_name=project_name),
+        fork_url = url_for('fork_project', namespace=namespace, project_name=project_name))
 
 @app.route('/<namespace>/<project_name>/clone', methods=['GET', 'POST'])
 @login_required

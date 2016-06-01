@@ -23,6 +23,15 @@
 <!-- cloned {{ project['forks_count'] }} times -->
 {% endif %}  
 <div id="layout">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     <div class="pure-menu pure-menu-horizontal">
       <ul class="pure-menu-list">
         <li class="pure-menu-item"><a class="button-xsmall pure-button" href="{{ url_for('projects_list') }}">/</a></li>

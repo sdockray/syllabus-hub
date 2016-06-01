@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>join: {{ title }}</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <style>
+    #layout {
+        padding: 2em;
+        color: black;
+    }
+    </style>
+</head>
+<body>
+<div id="layout">
+    <p>You are about to join the <a href="{{ url }}">{{ project_name }}</a> syllabus created by {{ owner }}.</p>
+    <p>You should only join if:</p>
+    <ul>
+        <li>you are collaborating with the syllabus creator</li>
+        <li>you want to make the most minor of changes (to spelling or formatting)</li>
+    </ul>
+    <p>Otherwise, you should probably <a href="{{ fork_url }}">clone the syllabus</a>. Then you'll have your own copy that you can change as much as you want.</p>
+    <p>If you still want to join this syllabus, click the button below.</p>
+    <form action="{{ join_url }}" method="post">
+    <button class="pure-button">Join</button>
+    </form>
+</div>
+</body>
+</html>
