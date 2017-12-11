@@ -1,4 +1,4 @@
-This project is now moving to [dat-syllabus](https://github.com/sdockray/dat-syllabus) which is an app for [Beaker Browser](http://beakerbrowser.com). Right now, you can use Beaker Browser to fork the base syllabus and create your own. The question now is whether to make a Hub (like [hashbase.io](hashbase.io), for example) and if so, what it should do.   
+This project is now moving to [dat-syllabus](https://github.com/sdockray/dat-syllabus) which is an app for [Beaker Browser](http://beakerbrowser.com). Right now, you can use Beaker Browser to fork the base syllabus and create your own. The question now is whether to make a Hub (like [hashbase.io](http://hashbase.io), for example) and if so, what it should do.   
 
 # syllabus-hub
 
