@@ -1,3 +1,5 @@
+This project is now moving to [dat-syllabus](https://github.com/sdockray/dat-syllabus) which is an app for [Beaker Browser](http://beakerbrowser.com). Right now, you can use Beaker Browser to fork the base syllabus and create your own. The question now is whether to make a Hub (like [hashbase.io](hashbase.io), for example) and if so, what it should do.   
+
 # syllabus-hub
 
 This is a website for a syllabus sharing community - a "GitHub for syllabi." You can see it running at [http://syllabus.thepublicschool.org](http://syllabus.thepublicschool.org)
